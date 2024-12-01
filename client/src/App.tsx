@@ -9,7 +9,7 @@ import PieChart from "./components/PieChart";
 
 const App = () => {
   const url = 'http://localhost:8080/api';
-  const { data, load } = useGet(url);
+  const { data} = useGet(url);
 
   const callData = useMemo(() => {
     if (!isCallService(data)) {
