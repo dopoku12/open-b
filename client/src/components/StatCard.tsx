@@ -1,5 +1,5 @@
 import React from 'react';
-import{Box, Grid,Text,Stat,StatLabel,StatNumber,StatHelpText,Icon} from"@chakra-ui/react"
+import{Box, Grid,Text,Stat,StatLabel,StatNumber,Icon} from"@chakra-ui/react"
 
 type Props={icon: React.ElementType; label: string; value: number;}
 

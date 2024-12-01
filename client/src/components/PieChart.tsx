@@ -1,5 +1,6 @@
 import Chart from 'react-apexcharts';
 import { useTheme } from '@chakra-ui/react';
+import { ApexOptions } from 'apexcharts';
 
 type Props={
 data: {
@@ -10,7 +11,7 @@ data: {
 const PieChart = ({ data }:Props) => {
   const theme = useTheme();
 
-  const options = {
+  const options:ApexOptions = {
     labels: data.map(item => item.name),
     colors: [theme.colors.brand.red, theme.colors.brand.yellow, theme.colors.brand.black],
     legend: {
