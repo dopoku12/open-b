@@ -2,3 +2,6 @@
 .env
 
 venv/
+
+# Ignore build output directories
+dist/

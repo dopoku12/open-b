@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,send_from_directory
 from flask_cors import CORS
 from dotenv import load_dotenv
 
@@ -6,12 +6,16 @@ from Apis import censusApi
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='dist')
 CORS(app)
 
 @app.route('/')
-def render():
-    return "Loading Content"
+def serve():
+    return send_from_directory(app.static_folder,'index.html')
+
+@app.route('/<path:path>')
+def static_proxy(path):
+    return send_from_directory(app.static_folder,path)
 
 @app.route('/api')
 def  home():
