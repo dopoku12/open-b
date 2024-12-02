@@ -1,5 +1,4 @@
 import requests
-import pandas as pd
 
 def make_req(url:str):
         try:
