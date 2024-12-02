@@ -1,5 +1,5 @@
 import requests
-
+#make api request dynamically 
 def make_req(url:str):
         try:
             response=requests.get(url=url)
