@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Box, Grid, GridItem, Text } from '@chakra-ui/react';
+import { Box, Grid, GridItem,} from '@chakra-ui/react';
 import { FaPhoneAlt, FaExclamationCircle, FaExclamationTriangle, FaRegSmile } from 'react-icons/fa';
 import { isCallService } from './Types/TypeGuards';
 import { useGet } from './hooks/useGet';
@@ -19,6 +19,7 @@ const App = () => {
     const priority = ['High', 'Medium', 'Non-Emergency'];
 
     const tableData = data.map(i => ({
+      callDateTime:i.callDateTime,
       Neighborhood: i.Neighborhood,
       PoliceDistrict: i.PoliceDistrict,
       description: i.description,
@@ -46,12 +47,7 @@ const App = () => {
       minH="100vh"
       p={5}
     >
-      <Text
-        fontSize="2xl"
-        mb={5}
-        color="red.600"
-        children="Baltimore 911 Records (2013-2022)"
-      />
+      
       <Grid templateColumns="repeat(4, 1fr)" gap={6} mb={5}>
         <GridItem>
           <StatCard
