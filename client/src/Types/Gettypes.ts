@@ -19,4 +19,29 @@ priority: string;
 recordId: number;
 }
 
+type CrimeDataObj={
+Age: string
+CCNumber: string
+CrimeCode:string
+CrimeDateTime: number
+Description: string
+Ethnicity: string
+Gender: string
+GeoLocation: string
+Inside_Outside: string
+Latitude:string 
+Location:string
+Longitude: string
+Neighborhood:string
+New_District: string
+Old_District: string
+Post: string
+PremiseType: string
+Race: string
+RowID: number
+Total_Incidents:number
+Weapon:string
+}
+
 export type CallService=ServiceObj[]
+export type CrimeData=CrimeDataObj[]

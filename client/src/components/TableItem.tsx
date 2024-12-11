@@ -24,6 +24,7 @@ export const TableItem = ({ tableData }: Props) => {
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
     const thead = tableData.length > 0 ? Object.keys(tableData[0]) : [];
+    const filteredThead = thead.filter(column => column !== 'callDateTime'); // Exclude callDateTime
 
     const filteredData = selectedColumn && selectedValue
         ? tableData.filter(row => row[selectedColumn as keyof TableRow] === selectedValue)
@@ -51,9 +52,9 @@ export const TableItem = ({ tableData }: Props) => {
     };
 
     return (
-        <Box bg="red.600" p={5} borderRadius="md" boxShadow="lg">
-            <Grid templateColumns="repeat(7, 1fr)" gap={1} mb={3} alignItems="center">
-                <GridItem colSpan={3}>
+        <Box bg="red.600" p={5} borderRadius="md" boxShadow="lg" overflowX="auto">
+            <Grid templateColumns={{ base: "1fr", md: "repeat(7, 1fr)" }} gap={1} mb={3} alignItems="center">
+                <GridItem colSpan={{ base: 1, md: 3 }}>
                     <Text
                         fontSize="2xl"
                         mb={5}
@@ -83,7 +84,7 @@ export const TableItem = ({ tableData }: Props) => {
                         color="black" 
                         size="sm"
                     >
-                        {thead.map((column, index) => (
+                        {filteredThead.map((column, index) => (
                             <option key={index} value={column}>{column}</option>
                         ))}
                     </Select>
