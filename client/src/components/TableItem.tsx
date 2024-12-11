@@ -1,4 +1,4 @@
-import { Box, Table, Text, Thead, Tbody, Tr, Th, Td, Select, Grid, GridItem, Button } from '@chakra-ui/react';
+import { Box, Table, Text, Thead, Tbody, Tr, Th, Td, Select, Grid, GridItem, Button, useTheme } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 
@@ -22,6 +22,8 @@ export const TableItem = ({ tableData }: Props) => {
     const [selectedValue, setSelectedValue] = useState('');
     const [selectedYear, setSelectedYear] = useState<number | ''>('');
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+
+    const theme = useTheme(); // Access theme
 
     const thead = tableData.length > 0 ? Object.keys(tableData[0]) : [];
     const filteredThead = thead.filter(column => column !== 'callDateTime'); // Exclude callDateTime
@@ -51,14 +53,29 @@ export const TableItem = ({ tableData }: Props) => {
         return date.toLocaleDateString();
     };
 
+    const getRowColor = (priority: string) => {
+        switch (priority) {
+            case 'High':
+                return theme.colors.red[500];
+            case 'Medium':
+                return theme.colors.orange[400];
+            case 'Low':
+                return theme.colors.blue[400];
+            case 'Non-Emergency':
+                return theme.colors.green[400];
+            default:
+                return 'white';
+        }
+    };
+
     return (
-        <Box bg="red.600" p={5} borderRadius="md" boxShadow="lg" overflowX="auto">
+        <Box bg="WhiteAlpha.900" p={5} borderRadius="md" boxShadow="lg" overflowX="auto">
             <Grid templateColumns={{ base: "1fr", md: "repeat(7, 1fr)" }} gap={1} mb={3} alignItems="center">
                 <GridItem colSpan={{ base: 1, md: 3 }}>
                     <Text
                         fontSize="2xl"
                         mb={5}
-                        color="white"
+                        color="black"
                         children="Baltimore 911 Records (2013-2023)"
                     />
                 </GridItem>
@@ -66,7 +83,6 @@ export const TableItem = ({ tableData }: Props) => {
                     <Select 
                         value={numRows} 
                         onChange={(e) => setNumRows(Number(e.target.value))} 
-                        bg="yellow.300"
                         color="black"
                         size="sm"
                     >
@@ -80,7 +96,6 @@ export const TableItem = ({ tableData }: Props) => {
                         placeholder="Select Column" 
                         value={selectedColumn} 
                         onChange={(e) => setSelectedColumn(e.target.value)} 
-                        bg="yellow.300" 
                         color="black" 
                         size="sm"
                     >
@@ -94,7 +109,6 @@ export const TableItem = ({ tableData }: Props) => {
                         placeholder="Select Value" 
                         value={selectedValue} 
                         onChange={(e) => setSelectedValue(e.target.value)} 
-                        bg="yellow.300" 
                         color="black" 
                         size="sm"
                         disabled={!selectedColumn}
@@ -111,7 +125,6 @@ export const TableItem = ({ tableData }: Props) => {
                         placeholder="Select Year"
                         value={selectedYear}
                         onChange={(e) => handleYearChange(e.target.value)}
-                        bg="yellow.300"
                         color="black"
                         size="sm"
                     >
@@ -158,9 +171,9 @@ export const TableItem = ({ tableData }: Props) => {
                 </Thead>
                 <Tbody>
                     {viewOption.map((row, rowIndex) => (
-                        <Tr key={rowIndex} _hover={{ bg: "yellow.100" }}>
+                        <Tr key={rowIndex} _hover={{ bg: "yellow.100" }} bg={getRowColor(row.priority)}>
                             {thead.map((key, colIndex) => (
-                                <Td key={colIndex} color="black" bg="white">
+                                <Td key={colIndex} color="black">
                                     {key === 'callDateTime' ? convertToLocalDate(row[key as keyof TableRow] as number) : row[key as keyof TableRow]}
                                 </Td>
                             ))}

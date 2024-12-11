@@ -1,24 +1,24 @@
 import Chart from 'react-apexcharts';
-import { useTheme } from '@chakra-ui/react';
 import { ApexOptions } from 'apexcharts';
 
 type Props={
-data: {
+  data: {
     name: string;
     total: number;
-}[]
+    color: string;
+  }[]
 }
-const PieChart = ({ data }:Props) => {
-  const theme = useTheme();
 
-  const options:ApexOptions = {
+const PieChart = ({ data }: Props) => {
+
+  const options: ApexOptions = {
     labels: data.map(item => item.name),
-    colors: [theme.colors.brand.red, theme.colors.brand.yellow, theme.colors.brand.black],
+    colors: data.map(item => item.color), // Use the colors from the data
     legend: {
       position: 'bottom',
     },
   };
-
+console.log(options)
   const series = data.map(item => item.total);
 
   return (
