@@ -9,7 +9,7 @@ type Response={
 export const useGet=(url:string)=>{
 const [load,setLoad]=useState(true)
 const [data,setData]=useState<Response>({callData:[]  ,crimeData:[]})
-console.log(data)
+
 useEffect(()=>{
     const fetchData=async () => {
     try {
