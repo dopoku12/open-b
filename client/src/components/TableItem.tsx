@@ -16,7 +16,7 @@ type Props = {
     tableData: TableRow[]
 };
 
-export const TableItem = ({ tableData }: Props) => {
+export const TableItem = ({ tableData}: Props) => {
     const [numRows, setNumRows] = useState(10);
     const [selectedColumn, setSelectedColumn] = useState('');
     const [selectedValue, setSelectedValue] = useState('');

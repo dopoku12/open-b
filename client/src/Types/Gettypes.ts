@@ -18,6 +18,7 @@ location: string;
 priority: string;
 recordId: number;
 }
+export type CallService=ServiceObj[]
 
 type CrimeDataObj={
 Age: string
@@ -43,5 +44,4 @@ Total_Incidents:number
 Weapon:string
 }
 
-export type CallService=ServiceObj[]
 export type CrimeData=CrimeDataObj[]
