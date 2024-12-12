@@ -9,23 +9,42 @@ load_dotenv()
 app = Flask(__name__, static_folder='dist')
 CORS(app)
 
+
+#for future url additions 
+url_list = [
+    {
+        'name': 'callData',
+        'url': 'https://services1.arcgis.com/UWYHeuuJISiGmgXx/arcgis/rest/services/police_CallsForService_PreviousYear/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson'
+    },
+    {'name':'crimeData',
+    'url':'https://services1.arcgis.com/UWYHeuuJISiGmgXx/arcgis/rest/services/Part1_Crime_Beta/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson'
+    }
+]
+
+for num in range(0,9):
+    serverStr=str(num)
+    url_list.append(
+        {
+        'name':'callData',
+        'url':f'https://services1.arcgis.com/UWYHeuuJISiGmgXx/ArcGIS/rest/services/911_2013_2022/FeatureServer/{serverStr}/query?outFields=*&where=1%3D1&f=geojson'
+        }
+)
+
+
 @app.route('/')
 def serve():
     return send_from_directory(app.static_folder, 'index.html')
+
 
 @app.route('/<path:path>')
 def static_proxy(path):
     return send_from_directory(app.static_folder, path)
 
+
 @app.route('/api')
 def home():
-#for future url additions 
-    url_list = [{
-        'name': 'calls_for_service',
-        'url': 'https://services1.arcgis.com/UWYHeuuJISiGmgXx/ArcGIS/rest/services/911_2013_2022/FeatureServer/9/query?outFields=*&where=1%3D1&f=geojson'
-    }]
-
-    data = []
+    # data = []
+    data={}
     for item in url_list:
         url = item['url']
         response = censusApi.make_req(url)
@@ -36,7 +55,10 @@ def home():
                 map(lambda d: d['properties'], features)
                 )
             #send the contents of the response to the data array
-            data.extend(processed_data)
+            if item['name'] not in data: 
+                data[item['name']] = processed_data
+            else:
+                data[item['name']].extend(processed_data)
         else:
             print('Error: "features" key not found in API response')
 

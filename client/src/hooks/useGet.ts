@@ -1,8 +1,14 @@
 import axios from "axios";
 import { useEffect,useState } from "react";
+import { CallService, CrimeData } from "../Types/Gettypes";
+
+type Response={
+    callData:CallService,
+    crimeData:CrimeData
+}
 export const useGet=(url:string)=>{
 const [load,setLoad]=useState(true)
-const [data,setData]=useState([{}])
+const [data,setData]=useState<Response>({callData:[]  ,crimeData:[]})
 
 useEffect(()=>{
     const fetchData=async () => {
