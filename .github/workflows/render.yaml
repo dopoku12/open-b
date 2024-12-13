@@ -40,9 +40,6 @@ jobs:
           cd server 
           pip install -r req.txt
 
-      - name: Run server
-        run: gunicorn -w 4 -b 0.0.0.0:10000 server.main:app --log-level debug
-
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
         with:
