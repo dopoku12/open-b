@@ -38,7 +38,7 @@ jobs:
       - name: Install backend dependencies
         run: |
           cd server 
-          pip install -r requirements.txt
+          pip install -r req.txt
 
       - name: Run server
         run: |
