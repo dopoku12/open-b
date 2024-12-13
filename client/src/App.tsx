@@ -10,7 +10,7 @@ import PieChart from "./components/PieChart";
 import CallDataGraph from './components/CallDataGraph';
 
 const App = () => {
-  const url = 'http://localhost:8080/api';
+  const url = 'http://localhost:8000/api';
   const { data } = useGet(url);
   const { callData } = data
 
