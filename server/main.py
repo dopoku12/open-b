@@ -1,8 +1,24 @@
 from flask import Flask, send_from_directory, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
-#import the requestFucntion
-from Apis import censusApi
+import requests
+
+#make api request dynamically 
+def make_req(url:str):
+        try:
+            response=requests.get(url=url)
+            if response.status_code==200:
+                json_data =response.json()
+                return json_data
+            else: 
+                errors=f'''Error:
+    status_code {response.status_code},
+    reason: {response.reason},
+    headers: {response.headers},
+    body: {response.text}'''
+                return errors
+        except Exception as e:
+            return f'error:{e}'
 
 load_dotenv()
 
@@ -47,7 +63,7 @@ def home():
     data={}
     for item in url_list:
         url = item['url']
-        response = censusApi.make_req(url)
+        response = make_req(url)
         
         if 'features' in response:
             features = response['features']
