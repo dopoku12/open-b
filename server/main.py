@@ -56,6 +56,9 @@ for num in range(0,9):
 # def static_proxy(path):
 #     return send_from_directory(app.static_folder, path)
 
+@app.route('/')
+def serve():
+    return'Hello work'
 
 @app.route('/api')
 def home():
