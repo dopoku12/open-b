@@ -22,7 +22,7 @@ def make_req(url:str):
 
 load_dotenv()
 
-app = Flask(__name__, static_folder='dist')
+app = Flask(__name__)
 CORS(app)
 
 
@@ -47,14 +47,14 @@ for num in range(0,9):
 )
 
 
-@app.route('/')
-def serve():
-    return send_from_directory(app.static_folder, 'index.html')
+# @app.route('/')
+# def serve():
+#     return send_from_directory(app.static_folder, 'index.html')
 
 
-@app.route('/<path:path>')
-def static_proxy(path):
-    return send_from_directory(app.static_folder, path)
+# @app.route('/<path:path>')
+# def static_proxy(path):
+#     return send_from_directory(app.static_folder, path)
 
 
 @app.route('/api')

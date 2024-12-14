@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/6398342a-d9a1-458e-a8d0-e9bb21be5114/resourceGroups/demo-rg/providers/Microsoft.Web/sites/demo-openb-server",
+    "appService.deploySubpath": "."
+}
