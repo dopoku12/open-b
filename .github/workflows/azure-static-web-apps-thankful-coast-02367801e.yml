@@ -22,10 +22,12 @@ jobs:
           cd client
           npm install
           npm run build  # Assuming your build command outputs to the 'dist' directory
+
       - name: Build (Server) # Assuming a separate build step for server
         run: |
           cd server
-          # Add your server build commands here (e.g., pip install -r req.txt)
+          pip install -r req.txt
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -35,7 +37,7 @@ jobs:
           action: "upload"
           app_location: "client" # Assuming your client app is the main app
           api_location: "server" # Assuming your server code is the API
-          output_location: ".." # Upload everything from the root directory
+          output_location: "client/dist" # Upload everything from the root directory
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
