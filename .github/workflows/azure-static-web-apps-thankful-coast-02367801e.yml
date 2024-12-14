@@ -17,12 +17,15 @@ jobs:
         with:
           submodules: true
           lfs: false
-      - name: Install dependencies and Build
+      - name: Install dependencies and Build (Client)
         run: |
-          cd client 
+          cd client
           npm install
-          npm run build
-
+          npm run build  # Assuming your build command outputs to the 'dist' directory
+      - name: Build (Server) # Assuming a separate build step for server
+        run: |
+          cd server
+          # Add your server build commands here (e.g., pip install -r req.txt)
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -30,9 +33,9 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_THANKFUL_COAST_02367801E }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
-          app_location: "/client" # App source code path
-          api_location: "server" # Api source code path - optional
-          output_location: "../server/dist" # Built app content directory - optional
+          app_location: "client" # Assuming your client app is the main app
+          api_location: "server" # Assuming your server code is the API
+          output_location: ".." # Upload everything from the root directory
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
