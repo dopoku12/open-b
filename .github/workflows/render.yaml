@@ -6,41 +6,40 @@ on:
       - main
 
 jobs:
-  build_and_deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      # Frontend build
+      # Frontend Build
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: "22"
-
+          node-version: "18"
       - name: Install frontend dependencies
         run: |
           cd client
-          npm install
-
+          npm ci
       - name: Build frontend
         run: |
           cd client
           npm run build
 
-      # Backend deployment
+      # Backend Deployment
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: "3.10"
-
-      - name: Install backend dependencies
+      - name: Create and activate virtual environment
         run: |
-          cd server 
+          cd server
+          python3 -m venv venv
+          source venv/bin/activate
           pip install -r req.txt
 
-      - name: Deploy to Azure App Service
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: openb-server
