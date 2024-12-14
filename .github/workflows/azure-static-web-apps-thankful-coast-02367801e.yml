@@ -37,7 +37,7 @@ jobs:
           action: "upload"
           app_location: "client" # Assuming your client app is the main app
           api_location: "server" # Assuming your server code is the API
-          output_location: "client/dist" # Upload everything from the root directory
+          output_location: "dist" # Upload everything from the root directory
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
