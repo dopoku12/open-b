@@ -19,7 +19,7 @@ jobs:
           lfs: false
       - name: Install dependencies and Build
         run: |
-          npm install
+          cd client npm install
           npm run build
       - name: Build And Deploy
         id: builddeploy
