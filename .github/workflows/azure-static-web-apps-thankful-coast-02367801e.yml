@@ -17,22 +17,27 @@ jobs:
         with:
           submodules: true
           lfs: false
+
       - name: Install dependencies and Build (Client)
         run: |
           cd client
           npm install
           npm run build  # Assuming your build command outputs to the 'dist' directory
 
-      - name: Activate virtual environment
-        run: source /tmp/8dd1cc68f342d45/antenv/bin/activate
-
-      - name: Build (Server) # Assuming a separate build step for server
+      - name: Create virtual environment
         run: |
           cd server
-          pip install -r req.txt
+          python -m venv antenv
+
+      - name: Activate virtual environment and install dependencies
+        run: |
+          source server/antenv/bin/activate
+          pip install -r server/requirements.txt
 
       - name: List installed packages
-        run: pip list
+        run: |
+          source server/antenv/bin/activate
+          pip list
 
       - name: Build And Deploy
         id: builddeploy
