@@ -50,7 +50,7 @@ const App = () => {
       <CallDataGraph data={graphData} />
       <TableItem tableData={tableData} />
       <footer>
-        by David Opoku ©copyright 
+        by David Opoku ©copyright 2024
       </footer>
     </Box>
   );
