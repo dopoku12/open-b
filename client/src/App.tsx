@@ -49,6 +49,9 @@ const App = () => {
       <PieChart data={len} />
       <CallDataGraph data={graphData} />
       <TableItem tableData={tableData} />
+      <footer>
+        by David Opoku ©copyright 
+      </footer>
     </Box>
   );
 };
