@@ -17,37 +17,22 @@ jobs:
         with:
           submodules: true
           lfs: false
-
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.10"
-
       - name: Install dependencies and Build (Client)
         run: |
           cd client
           npm install
           npm run build  # Assuming your build command outputs to the 'dist' directory
 
-      - name: Create virtual environment
+      - name: Activate virtual environment
+        run: source /tmp/8dd1cc68f342d45/antenv/bin/activate
+
+      - name: Build (Server) # Assuming a separate build step for server
         run: |
           cd server
-          python -m venv antenv
-
-      - name: Upgrade pip
-        run: |
-          source server/antenv/bin/activate
-          python -m pip install --upgrade pip
-
-      - name: Activate virtual environment and install dependencies
-        run: |
-          source server/antenv/bin/activate
-          pip install --no-cache-dir -r server/requirements.txt
+          pip install -r req.txt
 
       - name: List installed packages
-        run: |
-          source server/antenv/bin/activate
-          pip list
+        run: pip list
 
       - name: Build And Deploy
         id: builddeploy
