@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, send_from_directory,jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
 import requests
@@ -22,7 +22,7 @@ def make_req(url:str):
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__,static_folder="dist")
 CORS(app)
 
 
