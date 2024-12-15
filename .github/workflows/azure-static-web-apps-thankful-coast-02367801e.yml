@@ -23,6 +23,9 @@ jobs:
           npm install
           npm run build  # Assuming your build command outputs to the 'dist' directory
 
+      - name: Activate virtual environment
+        run: source /tmp/8dd1cc68f342d45/antenv/bin/activate
+
       - name: Build (Server) # Assuming a separate build step for server
         run: |
           cd server
