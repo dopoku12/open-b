@@ -10,7 +10,7 @@ import PieChart from "./components/PieChart";
 import CallDataGraph from './components/CallDataGraph';
 
 const App = () => {
-  const url = 'demo-openb-server.azurewebsites.net/api';
+  const url = 'https://openb-serv.azurewebsites.net/api';
   const { data } = useGet(url);
   const { callData } = data
 
