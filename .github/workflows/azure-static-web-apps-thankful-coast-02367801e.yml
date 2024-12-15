@@ -28,6 +28,9 @@ jobs:
           cd server
           pip install -r req.txt
 
+      - name: List installed packages
+        run: pip list
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
