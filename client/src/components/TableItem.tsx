@@ -16,7 +16,7 @@ type Props = {
     tableData: TableRow[]
 };
 
-export const TableItem = ({ tableData}: Props) => {
+export const TableItem = ({ tableData }: Props) => {
     const [numRows, setNumRows] = useState(10);
     const [selectedColumn, setSelectedColumn] = useState('');
     const [selectedValue, setSelectedValue] = useState('');
@@ -69,20 +69,17 @@ export const TableItem = ({ tableData}: Props) => {
     };
 
     return (
-        <Box bg="WhiteAlpha.900" p={5} borderRadius="md" boxShadow="lg" overflowX="auto">
-            <Grid templateColumns={{ base: "1fr", md: "repeat(7, 1fr)" }} gap={1} mb={3} alignItems="center">
+        <Box bg="whiteAlpha.900" p={5} borderRadius="md" boxShadow="lg" overflowX="auto">
+            <Grid templateColumns={{ base: "1fr", md: "repeat(7, 1fr)" }} gap={4} mb={3} alignItems="center">
                 <GridItem colSpan={{ base: 1, md: 3 }}>
-                    <Text
-                        fontSize="2xl"
-                        mb={5}
-                        color="black"
-                        children="Baltimore 911 Records (2013-2023)"
-                    />
+                    <Text fontSize="2xl" mb={5} color="black">
+                        Baltimore 911 Records (2013-2023)
+                    </Text>
                 </GridItem>
                 <GridItem>
-                    <Select 
-                        value={numRows} 
-                        onChange={(e) => setNumRows(Number(e.target.value))} 
+                    <Select
+                        value={numRows}
+                        onChange={(e) => setNumRows(Number(e.target.value))}
                         color="black"
                         size="sm"
                     >
@@ -92,11 +89,11 @@ export const TableItem = ({ tableData}: Props) => {
                     </Select>
                 </GridItem>
                 <GridItem>
-                    <Select 
-                        placeholder="Select Column" 
-                        value={selectedColumn} 
-                        onChange={(e) => setSelectedColumn(e.target.value)} 
-                        color="black" 
+                    <Select
+                        placeholder="Select Column"
+                        value={selectedColumn}
+                        onChange={(e) => setSelectedColumn(e.target.value)}
+                        color="black"
                         size="sm"
                     >
                         {filteredThead.map((column, index) => (
@@ -105,15 +102,15 @@ export const TableItem = ({ tableData}: Props) => {
                     </Select>
                 </GridItem>
                 <GridItem>
-                    <Select 
-                        placeholder="Select Value" 
-                        value={selectedValue} 
-                        onChange={(e) => setSelectedValue(e.target.value)} 
-                        color="black" 
+                    <Select
+                        placeholder="Select Value"
+                        value={selectedValue}
+                        onChange={(e) => setSelectedValue(e.target.value)}
+                        color="black"
                         size="sm"
                         disabled={!selectedColumn}
                     >
-                        {selectedColumn 
+                        {selectedColumn
                             ? [...new Set(tableData.map(row => row[selectedColumn as keyof TableRow]))].map((value, index) => (
                                 <option key={index} value={value}>{value}</option>
                             ))
@@ -137,50 +134,52 @@ export const TableItem = ({ tableData}: Props) => {
                     </Select>
                 </GridItem>
             </Grid>
-            <Table variant="simple" colorScheme="yellow">
-                <Thead>
-                    <Tr>
-                        {thead.map((i, id) => (
-                            <Th key={id} color="white" bg="black">
-                                {i}
-                                {i === 'callDateTime' && (
-                                    <Box display="inline-flex" ml={2}>
-                                        <Button
-                                            size="xs"
-                                            onClick={() => setSortOrder('asc')}
-                                            bg="transparent"
-                                            color={sortOrder === 'asc' ? 'yellow.300' : 'white'}
-                                            _hover={{ bg: 'yellow.100' }}
-                                        >
-                                            <FaArrowUp />
-                                        </Button>
-                                        <Button
-                                            size="xs"
-                                            onClick={() => setSortOrder('desc')}
-                                            bg="transparent"
-                                            color={sortOrder === 'desc' ? 'yellow.300' : 'white'}
-                                            _hover={{ bg: 'yellow.100' }}
-                                        >
-                                            <FaArrowDown />
-                                        </Button>
-                                    </Box>
-                                )}
-                            </Th>
-                        ))}
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {viewOption.map((row, rowIndex) => (
-                        <Tr key={rowIndex} _hover={{ bg: "yellow.100" }} bg={getRowColor(row.priority)}>
-                            {thead.map((key, colIndex) => (
-                                <Td key={colIndex} color="black">
-                                    {key === 'callDateTime' ? convertToLocalDate(row[key as keyof TableRow] as number) : row[key as keyof TableRow]}
-                                </Td>
+            <Box overflowX="auto">
+                <Table variant="simple" colorScheme="yellow">
+                    <Thead>
+                        <Tr>
+                            {thead.map((i, id) => (
+                                <Th key={id} color="white" bg="black">
+                                    {i}
+                                    {i === 'callDateTime' && (
+                                        <Box display="inline-flex" ml={2}>
+                                            <Button
+                                                size="xs"
+                                                onClick={() => setSortOrder('asc')}
+                                                bg="transparent"
+                                                color={sortOrder === 'asc' ? 'yellow.300' : 'white'}
+                                                _hover={{ bg: 'yellow.100' }}
+                                            >
+                                                <FaArrowUp />
+                                            </Button>
+                                            <Button
+                                                size="xs"
+                                                onClick={() => setSortOrder('desc')}
+                                                bg="transparent"
+                                                color={sortOrder === 'desc' ? 'yellow.300' : 'white'}
+                                                _hover={{ bg: 'yellow.100' }}
+                                            >
+                                                <FaArrowDown />
+                                            </Button>
+                                        </Box>
+                                    )}
+                                </Th>
                             ))}
                         </Tr>
-                    ))}
-                </Tbody>
-            </Table>
+                    </Thead>
+                    <Tbody>
+                        {viewOption.map((row, rowIndex) => (
+                            <Tr key={rowIndex} _hover={{ bg: "yellow.100" }} bg={getRowColor(row.priority)}>
+                                {thead.map((key, colIndex) => (
+                                    <Td key={colIndex} color="black">
+                                        {key === 'callDateTime' ? convertToLocalDate(row[key as keyof TableRow] as number) : row[key as keyof TableRow]}
+                                    </Td>
+                                ))}
+                            </Tr>
+                        ))}
+                    </Tbody>
+                </Table>
+            </Box>
         </Box>
     );
 };
