@@ -85,7 +85,7 @@ const CallDataGraph = ({ data }: CallDataGraphProps) => {
       },
     ],
     title: {
-      text: '911 Calls from 2013 to 2024',
+      text: '911 Calls from 2013 to 2023',
       align: 'center',
       style: {
         fontSize: '16px',

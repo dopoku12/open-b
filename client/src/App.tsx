@@ -12,7 +12,7 @@ import { Info } from './components/Info';
 
 const App = () => {
   const url = 'https://openb-serv.azurewebsites.net/api';
-  const { data, load } = useGet(url);  // Include load state from useGet hook
+  const { data, load } = useGet(url); 
   const { callData } = data || {};
 
   const cachedData = useCache(callData);
