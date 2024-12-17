@@ -1,7 +1,10 @@
+import React from 'react';
 import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
 type CallDataGraphProps = {
+  title: string;
+  chartType: 'line' | 'area' | 'bar';
   data: {
     year: number;
     High: number;
@@ -11,12 +14,12 @@ type CallDataGraphProps = {
   }[];
 };
 
-const CallDataGraph = ({ data }: CallDataGraphProps) => {
+const CallDataGraph: React.FC<CallDataGraphProps> = ({ title, chartType, data }) => {
   const priorities: Array<keyof Omit<CallDataGraphProps['data'][0], 'year'>> = ['High', 'Medium', 'Low', 'Non-Emergency'];
 
   const options: ApexOptions = {
     chart: {
-      type: 'area',
+      type: chartType,
       height: '100%',
       toolbar: {
         show: true,
@@ -85,7 +88,7 @@ const CallDataGraph = ({ data }: CallDataGraphProps) => {
       },
     ],
     title: {
-      text: '911 Calls from 2013 to 2023',
+      text: title,
       align: 'center',
       style: {
         fontSize: '16px',
@@ -119,7 +122,7 @@ const CallDataGraph = ({ data }: CallDataGraphProps) => {
     data: data.map(d => d[priority] || 0),
   }));
 
-  return <Chart options={options} series={series} type="area" height="400" />;
+  return <Chart options={options} series={series} type={chartType} height="400" />;
 };
 
 export default CallDataGraph;
