@@ -1,9 +1,8 @@
 import { Box, Heading, Text, Button } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
-type Props = {};
 
-const NotFound = (props: Props) => {
+const NotFound = () => {
   return (
     <Box textAlign="center" py={10} px={6}>
       <Heading as="h1" size="2xl" mt={6} mb={2}>
