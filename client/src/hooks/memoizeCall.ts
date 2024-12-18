@@ -4,6 +4,7 @@ import { useTheme } from "@chakra-ui/react";
 import { FaExclamationCircle, FaExclamationTriangle, FaRegSmile, FaInfoCircle } from 'react-icons/fa';
 import { CallService } from "../Types/Gettypes";
 
+// Function to get counts of calls per year, categorized by priority
 const getYearCountsByPriority = (tableData: TableRow[], priorities: string[]): Record<string, Record<number, number>> => {
   return priorities.reduce((acc, priority) => {
     acc[priority] = tableData.reduce((priorityAcc, row) => {
@@ -17,6 +18,7 @@ const getYearCountsByPriority = (tableData: TableRow[], priorities: string[]): R
   }, {} as Record<string, Record<number, number>>);
 };
 
+// Function to prepare data for graph representation
 const prepareGraphData = (yearCountsByPriority: Record<string, Record<number, number>>): GraphData => {
   return Object.keys(yearCountsByPriority['High']).map(year => {
     const yearNum = parseInt(year);
@@ -30,12 +32,14 @@ const prepareGraphData = (yearCountsByPriority: Record<string, Record<number, nu
   });
 };
 
-const useCache = ( callData :CallService ) => {
-  const theme = useTheme();
+// Custom hook to cache call data and prepare necessary data for display
+const memoizeCall = ( callData :CallService ) => {
+  const theme = useTheme(); // Accessing the Chakra UI theme
 
   return useMemo(() => {
-    const priorities = ['High', 'Medium', 'Low', 'Non-Emergency'];
+   const priorities = ['High', 'Medium', 'Low', 'Non-Emergency'];
 
+    // Transforming raw call data into a more usable format
     const tableData: TableRow[] = callData.map(i => ({
       callDateTime: i.callDateTime,
       Neighborhood: i.Neighborhood,
@@ -46,6 +50,7 @@ const useCache = ( callData :CallService ) => {
       ZIPCode: i.ZIPCode,
     }));
 
+    // Calculating the total number of calls for each priority level
     const len = priorities.map(priority => ({
       name: priority,
       total: callData.filter(i => i.priority === priority).length,
@@ -53,15 +58,19 @@ const useCache = ( callData :CallService ) => {
       icon: priority === 'High' ? FaExclamationCircle : priority === 'Medium' ? FaExclamationTriangle : priority === 'Low' ? FaInfoCircle : FaRegSmile
     }));
 
+    // Calculating the total number of calls
     const totalCall = len.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0);
 
+    // Getting counts of calls per year categorized by priority
     const yearCountsByPriority = getYearCountsByPriority(tableData, priorities);
 
+    // Preparing graph data from year counts by priority
     const graphData = prepareGraphData(yearCountsByPriority);
 
-    const cachedData={ totalCall, len, tableData, graphData };
-    return cachedData
-  }, [callData, theme]);
+    // Caching all prepared data
+    const cachedData = { totalCall, len, tableData, graphData };
+    return cachedData; // Memoized data to prevent unnecessary recalculations
+  }, [callData, theme]); 
 };
 
-export default useCache;
+export default memoizeCall;

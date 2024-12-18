@@ -1,9 +1,23 @@
-type Props = {}
+import CrimeDataTable from "../components/CrimeDataTable";
+import { TableItem } from "../components/TableItem";
 
-const CrimeStats = (props: Props) => {
+import { tableData } from "../Types/msicTypes";
+type Props = {
+  cachedCrimeData: {
+    tableData: { [key: string]: any }[];
+  };
+};
+
+
+const CrimeStats = ({cachedCrimeData}: Props) => {
+  console.log(cachedCrimeData)
+  const {tableData } = cachedCrimeData || {};
   return (
-    <div>CrimeStats</div>
-  )
-}
+    <div>
 
-export default CrimeStats
+    <CrimeDataTable tableData={tableData} title="Crime Data"/>
+    </div>
+  );
+};
+
+export default CrimeStats;

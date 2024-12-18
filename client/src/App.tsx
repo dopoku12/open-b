@@ -6,23 +6,32 @@ import NotFound from './pages/NotFound'
 import CallStats from './pages/CallStats';
 
 import { useGet } from './hooks/useGet';
-import useCache from './hooks/useCache';
+import memoizeCall from './hooks/memoizeCall';
+import memoizeCrime from './hooks/memoizeCrime';
 
 
 const App= () =>{
    const url = 'https://openb-serv.azurewebsites.net/api';
   const { data, load } = useGet(url); 
   const { callData,crimeData } = data || {};
-console.log(data)
-  const cachedData = useCache(callData);
+  const cachedCallData = memoizeCall(callData);
+  const cachedCrimeData=memoizeCrime(crimeData)
 
-console.log(crimeData)
 return (
    <Router> 
     <Routes> 
       <Route path="/" element={<Home load={load} />}> 
-      <Route path='/' element={<CallStats data={cachedData}/>} />
-      <Route path="/CrimeStats" element={<CrimeStats />} /> 
+      <Route path='/' 
+      element={
+        <CallStats 
+      data={cachedCallData}/>
+    } 
+      />
+      <Route path="/CrimeStats" 
+      element={
+        <CrimeStats 
+       cachedCrimeData={cachedCrimeData} />
+      } /> 
       <Route path="/Map" element={<MapComponent />} /> 
       <Route path="*" element={<NotFound />} /> 
       </Route>
