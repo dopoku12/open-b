@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 import Home from './pages/Home';  
-import CrimeStats from './pages/CrimeStats'
-import MapComponent from './pages/MapComponent'; 
+import CrimeStats from './pages/CrimeStats' 
 import NotFound from './pages/NotFound'
 import CallStats from './pages/CallStats';
 
@@ -32,7 +31,6 @@ return (
         <CrimeStats 
        cachedCrimeData={cachedCrimeData} />
       } /> 
-      <Route path="/Map" element={<MapComponent />} /> 
       <Route path="*" element={<NotFound />} /> 
       </Route>
     </Routes> 

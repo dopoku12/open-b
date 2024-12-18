@@ -1,9 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react';
-import Home from '../pages/CallStats';
-import CrimeData from '../pages/CrimeStats';
-import Map from '../pages/MapComponent';
+import { Box, Tabs, TabList, Tab } from '@chakra-ui/react';
 
 const Nav = () => {
   const pages = [
@@ -15,10 +11,6 @@ const Nav = () => {
       name: 'Bmore Crime Data (2013-2023)',
       link: '/CrimeStats',
     },
-    {
-      name: 'Map',
-      link: '/Map',
-    },
   ];
 
   return (
@@ -26,22 +18,11 @@ const Nav = () => {
       <Tabs>
         <TabList>
           {pages.map((page, id) => (
-            <Tab key={id}>
-              <Link to={page.link}>{page.name}</Link>
+            <Tab key={id} as={Link} to={page.link}>
+              {page.name}
             </Tab>
           ))}
         </TabList>
-        {/* <TabPanels>
-          <TabPanel>
-            <Home />
-          </TabPanel>
-          <TabPanel>
-            <CrimeData />
-          </TabPanel>
-          <TabPanel>
-            <Map />
-          </TabPanel>
-        </TabPanels> */}
       </Tabs>
     </Box>
   );

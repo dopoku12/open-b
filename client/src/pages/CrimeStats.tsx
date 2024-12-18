@@ -1,7 +1,5 @@
 import CrimeDataTable from "../components/CrimeDataTable";
-import { TableItem } from "../components/TableItem";
-
-import { tableData } from "../Types/msicTypes";
+import MapComponent from "../components/MapComponent";
 type Props = {
   cachedCrimeData: {
     tableData: { [key: string]: any }[];
@@ -10,12 +8,11 @@ type Props = {
 
 
 const CrimeStats = ({cachedCrimeData}: Props) => {
-  console.log(cachedCrimeData)
   const {tableData } = cachedCrimeData || {};
   return (
     <div>
-
     <CrimeDataTable tableData={tableData} title="Crime Data"/>
+    <MapComponent tableData={tableData}/>
     </div>
   );
 };

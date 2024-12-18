@@ -18,7 +18,7 @@ const removeNullValues = (record: { [key: string]: any }) => {
 };
 
 export default function memoizeCrime(data: CrimeData) {
-  const tableData = data.map((i) => ({
+const tableData = data.map((i) => ({
     CrimeDateTime: convertToLocalTime(i.CrimeDateTime), 
     Age: i.Age,
     CCNumber: i.CCNumber,
@@ -34,5 +34,8 @@ export default function memoizeCrime(data: CrimeData) {
     Race: i.Race,
   })).map(removeNullValues); // Remove null values from each record
 
-  return { tableData };
+
+
+
+return { tableData };
 }
